@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"></head>
+<body>
+<nav th:replace="~{fragments/header :: navbar}"></nav>
+<div class="container mt-4">
+    <h2>Lista de Funcionários</h2>
+    <a th:href="@{/web/funcionarios/novo}" class="btn btn-primary mb-3">Novo Funcionário</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Data de Admissão</th>
+            <th>Departamento</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="func : ${funcionarios}">
+            <td th:text="${func.id}"></td>
+            <td th:text="${func.nome}"></td>
+            <td th:text="${func.email}"></td>
+            <td th:text="${#temporals.format(func.dataAdmissao, 'dd/MM/yyyy')}"></td>
+            <td th:text="${func.departamento.nome}"></td>
+            <td>
+                <a th:href="@{/web/funcionarios/editar/{id}(id=${func.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/web/funcionarios/excluir/{id}(id=${func.id})}" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"></head>
+<body>
+<nav th:replace="~{fragments/header :: navbar}"></nav>
+<div class="container mt-4">
+    <h2 th:text="${funcionario.id == null} ? 'Novo Funcionário' : 'Editar Funcionário'"></h2>
+    <form th:action="@{/web/funcionarios/salvar}" th:object="${funcionario}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+        </div>
+        <div class="mb-3">
+            <label for="dataAdmissao" class="form-label">Data de Admissão</label>
+            <input type="date" class="form-control" id="dataAdmissao" th:field="*{dataAdmissao}" required>
+        </div>
+        <div class="mb-3">
+            <label for="departamento" class="form-label">Departamento</label>
+            <select class="form-control" id="departamento" th:field="*{departamento}" required>
+                <option value="">Selecione um Departamento</option>
+                <option th:each="depto : ${departamentos}"
+                        th:value="${depto.id}"
+                        th:text="${depto.nome}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a th:href="@{/web/funcionarios}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

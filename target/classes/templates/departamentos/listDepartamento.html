@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"></head>
+<body>
+<nav th:replace="~{fragments/header :: navbar}"></nav>
+<div class="container mt-4">
+    <h2>Lista de Departamentos</h2>
+    <a th:href="@{/web/departamentos/novo}" class="btn btn-primary mb-3">Novo Departamento</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Localização</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="depto : ${departamentos}">
+            <td th:text="${depto.id}"></td>
+            <td th:text="${depto.nome}"></td>
+            <td th:text="${depto.localizacao}"></td>
+            <td>
+                <a th:href="@{/web/departamentos/editar/{id}(id=${depto.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/web/departamentos/excluir/{id}(id=${depto.id})}" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
